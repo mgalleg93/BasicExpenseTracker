@@ -1,0 +1,14 @@
+div {
+    margin: 5px;
+}
+.container {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+form {
+    justify-content: center;
+}
+#btnDiv {
+    text-align: center;
+    margin: auto;
+}
