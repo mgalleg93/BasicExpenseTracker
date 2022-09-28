@@ -68,6 +68,8 @@ function addExpense(item) {
     let newRow = document.createElement('tr');
     let theDate = new Date(item.date);
 
+    //console.log(item.date, theDate.toLocaleDateString());
+
     newRow.innerHTML = `<th scope="row">${theDate.toLocaleDateString()}</th><td>${item.expense}</td><td>$${item.cost}</td><td>${item.category}</td>
                         <td>${item.person}</td><td>${item.method}</td>`;
     
