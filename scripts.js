@@ -4,7 +4,9 @@ const regex = /[+-]?\d+(\.\d+)?/g;
 
 let expenses = [
     {
-        date: '2022-09-20',
+        dateY: '2022',
+        dateM: '09',
+        dateD: '20',
         expense: 'Frys',
         cost: '83.05',
         category: 'Groceries',
@@ -12,7 +14,9 @@ let expenses = [
         method: 'Credit Card'
     },
     {
-        date: '2022-09-21',
+        dateY: '2022',
+        dateM: '09',
+        dateD: '21',
         expense: 'Starbucks',
         cost: '5.05',
         category: 'Food-Out',
@@ -26,21 +30,25 @@ function submitExpense() {
     if(validateForm()) {
         createExpense();
     } else {
-        alert("Fix yo shit homie");
+        alert("Fix yo shiz homie");
     }
 }
 
 //Function to create the new expense
 function createExpense() {
-    let newDate = document.getElementById('expenseDate').value;
+    let newDate = document.getElementById('expenseDate').value.split('-');
     let newExpense = document.getElementById('expenseName').value;
     let newCost = document.getElementById('expenseCost').value;
     let newCategory = document.getElementById('expenseCategory').value;
     let newPerson = document.getElementById('expenseUser').value;
     let newMethod = document.getElementById('expenseMethod').value;
 
+    console.log(newDate);
+
     let theExpense = {
-        date: newDate,
+        dateY: newDate[0],
+        dateM: newDate[1],
+        dateD: newDate[2],
         expense: newExpense,
         cost: newCost,
         category: newCategory,
@@ -66,11 +74,8 @@ function clearForm() {
 function addExpense(item) {
     // Create new table row element and all the variables that will go in it
     let newRow = document.createElement('tr');
-    let theDate = new Date(item.date);
 
-    //console.log(item.date, theDate.toLocaleDateString());
-
-    newRow.innerHTML = `<th scope="row">${theDate.toLocaleDateString()}</th><td>${item.expense}</td><td>$${item.cost}</td><td>${item.category}</td>
+    newRow.innerHTML = `<th scope="row">${item.dateM}/${item.dateD}/${item.dateY}</th><td>${item.expense}</td><td>$${item.cost}</td><td>${item.category}</td>
                         <td>${item.person}</td><td>${item.method}</td>`;
     
     document.getElementById('tableBody').append(newRow);
