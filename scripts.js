@@ -1,5 +1,6 @@
 let errors = [];
-let currentTotal = 0;
+let currentTotalD = 0;
+let currentTotalC = 0;
 const regex = /[+-]?\d+(\.\d+)?/g;
 
 let expenses = [
@@ -8,7 +9,8 @@ let expenses = [
         dateM: '09',
         dateD: '20',
         expense: 'Frys',
-        cost: '83.05',
+        costD: '83',
+        costC: '5',
         category: 'Groceries',
         person: 'Miguel',
         method: 'Credit Card'
@@ -18,7 +20,8 @@ let expenses = [
         dateM: '09',
         dateD: '21',
         expense: 'Starbucks',
-        cost: '5.05',
+        costD: '5',
+        costC: '5',
         category: 'Food-Out',
         person: 'Miguel',
         method: 'Credit Card'
@@ -38,7 +41,7 @@ function submitExpense() {
 function createExpense() {
     let newDate = document.getElementById('expenseDate').value.split('-');
     let newExpense = document.getElementById('expenseName').value;
-    let newCost = document.getElementById('expenseCost').value;
+    let newCost = document.getElementById('expenseCost').value.split('.');
     let newCategory = document.getElementById('expenseCategory').value;
     let newPerson = document.getElementById('expenseUser').value;
     let newMethod = document.getElementById('expenseMethod').value;
@@ -50,7 +53,8 @@ function createExpense() {
         dateM: newDate[1],
         dateD: newDate[2],
         expense: newExpense,
-        cost: newCost,
+        costD: newCost[0],
+        costC: newCost[1] || '00',
         category: newCategory,
         person: newPerson,
         method: newMethod
@@ -75,13 +79,24 @@ function addExpense(item) {
     // Create new table row element and all the variables that will go in it
     let newRow = document.createElement('tr');
 
-    newRow.innerHTML = `<th scope="row">${item.dateM}/${item.dateD}/${item.dateY}</th><td>${item.expense}</td><td>$${item.cost}</td><td>${item.category}</td>
+    let createCost = '';
+    if(item.costC.length > 1) {
+        createCost = `$${item.costD}.${item.costC}`;
+    } else {
+        createCost = `$${item.costD}.0${item.costC}`;
+    }
+
+    newRow.innerHTML = `<th scope="row">${item.dateM}/${item.dateD}/${item.dateY}</th><td>${item.expense}</td><td>${createCost}</td><td>${item.category}</td>
                         <td>${item.person}</td><td>${item.method}</td>`;
     
     document.getElementById('tableBody').append(newRow);
-    currentTotal = currentTotal + parseFloat(item.cost);
-    console.log(currentTotal);
-    document.getElementById('total').innerText = '$' + currentTotal;
+    currentTotalD = currentTotalD + parseInt(item.costD);
+    currentTotalC = currentTotalC + parseInt(item.costC);
+    while(currentTotalC >= 100) {
+        currentTotalD = currentTotalD + (currentTotalC / 100)
+        currentTotalC = currentTotalC % 100;
+    }
+    document.getElementById('total').innerText = `$${currentTotalD}.${currentTotalC}`;
 }
 
 //Function to validate the form for inputing an expense
