@@ -15,69 +15,71 @@
         </div>
       </nav>
     <div class="container">
-        <div>
-            <form class="row needs-validation" novalidate >
-                <div class="col-3">
-                    <label class="form-label" for="expenseDate">Date</label>
-                    <input type="date" name="Date" class="form-control" id="expenseDate" placeholder="07/10/2022" requried>
-                </div>
-                <div class="col-3">
-                    <label class="form-label" for="expenseName">Expense</label>
-                    <input type="text" name="Expense" class="form-control" id="expenseName" placeholder="Expense" required>
-                    <div class="invalid-feedback">
-                        Please enter an expense.
+        <div class="row">
+            <div class="col col-5">
+                <form class="row needs-validation" novalidate >
+                    <div class="col col-4">
+                        <label class="form-label" for="expenseDate">Date</label>
+                        <input type="date" name="Date" class="form-control" id="expenseDate" placeholder="07/10/2022" requried>
                     </div>
-                </div>
-                <div class="col-3">
-                    <label class="form-label" for="expenseCategory">Category</label>
-                    <input type="text" name="Category" class="form-control" id="expenseCategory" placeholder="Category" required>
-                </div>
+                    <div class="col col-4">
+                        <label class="form-label" for="expenseName">Expense</label>
+                        <input type="text" name="Expense" class="form-control" id="expenseName" placeholder="Expense" required>
+                        <div class="invalid-feedback">
+                            Please enter an expense.
+                        </div>
+                    </div>
+                    <div class="col col-4">
+                        <label class="form-label" for="expenseCategory">Category</label>
+                        <input type="text" name="Category" class="form-control" id="expenseCategory" placeholder="Category" required>
+                    </div>
 
-                <div class="col-3">
-                    <label class="form-label" for="expenseCost">Cost</label>
-                    <input type="text" name="Cost" class="form-control" id="expenseCost" placeholder="$" required>
-                </div>
-                <div class="col-3">
-                    <label class="form-label" for="expenseUser">Person</label>
-                    <input type="text" name="Person" class="form-control" id="expenseUser" placeholder="Joe Smith" required>
-                </div>
-                <div class="col-3">
-                    <label class="form-label" for="expenseMethod">Method of Payment</label>
-                    <input type="text" name="Method of Payment" class="form-control" id="expenseMethod" placeholder="Credit Card" required>
-                </div>
-                
-                <div id="btnDiv" class="col-12">
-                    <button type="button" onClick="submitExpense()" class="btn btn-primary">Add Expense</button>
-                </div>
-            </form>
-        </div>
-        <div>
-            <h4>Expenses</h4>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Date</th>
-                        <th scope="col">Expense</th>
-                        <th scope="col">Cost</th>
-                        <th scope="col">Category</th>
-                        <th scope="col">Person</th>
-                        <th scope="col">Method of Payment</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
+                    <div class="col col-4">
+                        <label class="form-label" for="expenseCost">Cost</label>
+                        <input type="text" name="Cost" class="form-control" id="expenseCost" placeholder="$" required>
+                    </div>
+                    <div class="col col-4">
+                        <label class="form-label" for="expenseUser">Person</label>
+                        <input type="text" name="Person" class="form-control" id="expenseUser" placeholder="Joe Smith" required>
+                    </div>
+                    <div class="col col-4">
+                        <label class="form-label" for="expenseMethod">Method of Payment</label>
+                        <input type="text" name="Method of Payment" class="form-control" id="expenseMethod" placeholder="Credit Card" required>
+                    </div>
                     
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>Total expenses:</th>
-                        <th id="total">$0</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </tfoot>
-            </table>
+                    <div id="btnDiv" class="col-12" style="margin-top: 10px;">
+                        <button type="button" onClick="submitExpense()" class="btn btn-primary">Add Expense</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col col-6">
+                <h4>Expenses</h4>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Expense</th>
+                            <th scope="col">Cost</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Person</th>
+                            <th scope="col">Method of Payment</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Total expenses:</th>
+                            <th id="total">$0</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
     </div>
     
