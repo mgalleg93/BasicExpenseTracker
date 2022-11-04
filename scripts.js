@@ -40,7 +40,6 @@ function createExpense() {
     let newMethod = document.getElementById('expenseMethod').value;
 
     newDate = new Date(newDate.getTime() + 86400000);
-    //console.log('currency: ', currency(newCost));
 
     let theExpense = {
         date: newDate.toDateString(),
