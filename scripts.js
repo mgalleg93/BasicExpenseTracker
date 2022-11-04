@@ -1,27 +1,20 @@
 let errors = [];
-let currentTotalD = 0;
-let currentTotalC = 0;
+let currentTotal = '';
 const regex = /[+-]?\d+(\.\d+)?/g;
 
 let expenses = [
     {
-        dateY: '2022',
-        dateM: '09',
-        dateD: '20',
+        date: 'Nov 02 2022',
         expense: 'Frys',
-        costD: '83',
-        costC: '5',
+        cost: '83.05',
         category: 'Groceries',
         person: 'Miguel',
         method: 'Credit Card'
     },
     {
-        dateY: '2022',
-        dateM: '09',
-        dateD: '21',
+        date: 'Nov 03 2022',
         expense: 'Starbucks',
-        costD: '5',
-        costC: '5',
+        cost: '5.05',
         category: 'Food-Out',
         person: 'Miguel',
         method: 'Credit Card'
@@ -39,27 +32,26 @@ function submitExpense() {
 
 //Function to create the new expense
 function createExpense() {
-    let newDate = document.getElementById('expenseDate').value.split('-');
+    let newDate = new Date(document.getElementById('expenseDate').value) ;
     let newExpense = document.getElementById('expenseName').value;
-    let newCost = document.getElementById('expenseCost').value.split('.');
+    let newCost = document.getElementById('expenseCost').value;
     let newCategory = document.getElementById('expenseCategory').value;
     let newPerson = document.getElementById('expenseUser').value;
     let newMethod = document.getElementById('expenseMethod').value;
 
-    console.log(newDate);
+    newDate = new Date(newDate.getTime() + 86400000);
+    //console.log('currency: ', currency(newCost));
 
     let theExpense = {
-        dateY: newDate[0],
-        dateM: newDate[1],
-        dateD: newDate[2],
+        date: newDate.toDateString(),
         expense: newExpense,
-        costD: newCost[0],
-        costC: newCost[1] || '00',
+        cost: currency(newCost).value.toString(),
         category: newCategory,
         person: newPerson,
         method: newMethod
     }
 
+    expenses.push(theExpense);
     addExpense(theExpense);
     clearForm();
 }
@@ -78,25 +70,17 @@ function clearForm() {
 function addExpense(item) {
     // Create new table row element and all the variables that will go in it
     let newRow = document.createElement('tr');
+    let date = new Date(item.date);
 
-    let createCost = '';
-    if(item.costC.length > 1) {
-        createCost = `$${item.costD}.${item.costC}`;
-    } else {
-        createCost = `$${item.costD}.0${item.costC}`;
-    }
+    let c = currency(item.cost);
 
-    newRow.innerHTML = `<th scope="row">${item.dateM}/${item.dateD}/${item.dateY}</th><td>${item.expense}</td><td>${createCost}</td><td>${item.category}</td>
+    newRow.innerHTML = `<th scope="row">${date.toLocaleDateString()}</th><td>${item.expense}</td><td>${currency(c).format()}</td><td>${item.category}</td>
                         <td>${item.person}</td><td>${item.method}</td>`;
     
     document.getElementById('tableBody').append(newRow);
-    currentTotalD = currentTotalD + parseInt(item.costD);
-    currentTotalC = currentTotalC + parseInt(item.costC);
-    while(currentTotalC >= 100) {
-        currentTotalD = currentTotalD + (currentTotalC / 100)
-        currentTotalC = currentTotalC % 100;
-    }
-    document.getElementById('total').innerText = `$${currentTotalD}.${currentTotalC}`;
+
+    currentTotal = currency(currentTotal).add(c).value;
+    document.getElementById('total').innerText = `${currency(currentTotal).format()}`;
 }
 
 //Function to validate the form for inputing an expense
